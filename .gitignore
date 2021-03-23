@@ -13,4 +13,9 @@ config.json
 .secret
 cert.pem
 key.pem
-
+logs
+pm2.log
+*.pid
+pub.sock
+rpc.sock
+touch
