@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import fs from 'fs';
 import path from 'path';
 import unzipper from 'unzipper';
+import https from 'https';
 
 type Config = {
     [project: string]: {
@@ -86,4 +87,9 @@ app.post<{project: string}, string, { secret: string }>('/:project/upload', asyn
     res.send('Files uploaded!');
 });
 
-app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
+const options = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+  };
+
+https.createServer(options, app).listen(PORT, () => console.log(`App listening on port ${PORT}`));

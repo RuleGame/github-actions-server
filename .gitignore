@@ -11,3 +11,6 @@ internal/
 backups
 config.json
 .secret
+cert.pem
+key.pem
+
