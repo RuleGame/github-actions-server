@@ -12,6 +12,7 @@
     "pm2:status": "PM2_HOME=. pm2 status src/index.ts",
     "pm2:log": "PM2_HOME=. pm2 log src/index.ts",
     "pm2:flush": "PM2_HOME=. pm2 flush src/index.ts",
+    "postinstall": "PM2_HOME=. pm2 install typescript",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
