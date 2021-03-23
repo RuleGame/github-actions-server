@@ -1,0 +1,13 @@
+node_modules/
+.node_modules/
+coverage/
+internal/
+**/.DS_Store
+.settings
+**/.vs
+**/.vscode/*
+.idea
+.eslintcache
+backups
+config.json
+.secret
