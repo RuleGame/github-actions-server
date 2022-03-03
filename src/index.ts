@@ -16,7 +16,7 @@ const PORT = 7189;
 
 const configFilePath = path.join(__dirname, '..', 'config.json');
 const secretFilePath = path.join(__dirname, '..', '.secret');
-const backupsFolderPath = path.join(__dirname, '..', 'backups');
+// const backupsFolderPath = path.join(__dirname, '..', 'backups');
 
 
 const isCanonicalPath = (path_: string) => path.resolve(path_) === path.normalize(path_)
@@ -63,26 +63,32 @@ app.post<{project: string}, string, { secret: string }>('/:project/upload', asyn
     // Move old folder path to project backup folder
     if (fs.existsSync(folderPath)){
         // Create project backup folder
-        const dateTime = new Date();
-        const projectBackupFolderPath = path.join(backupsFolderPath, project);
-        if (!isCanonicalPath(projectBackupFolderPath)) {
-            console.error(`The project in the config file has a bad format: ${projectBackupFolderPath}`);
-            return res.status(500).send(`Bad project folder path created using the uploaded filename: ${projectBackupFolderPath}`);
-        }
-        if (!fs.existsSync(projectBackupFolderPath)) {
-            await fs.promises.mkdir(projectBackupFolderPath, { recursive: true })
-        }
+        // const dateTime = new Date();
+        // const projectBackupFolderPath = path.join(backupsFolderPath, project);
+        // if (!isCanonicalPath(projectBackupFolderPath)) {
+        //     console.error(`The project in the config file has a bad format: ${projectBackupFolderPath}`);
+        //     return res.status(500).send(`Bad project folder path created using the uploaded filename: ${projectBackupFolderPath}`);
+        // }
+        // if (!fs.existsSync(projectBackupFolderPath)) {
+        //     await fs.promises.mkdir(projectBackupFolderPath, { recursive: true })
+        // }
 
-        const dateTimeFormat = `${dateTime.getFullYear()}-${dateTime.getMonth() + 1}-${dateTime.getDate()}_${dateTime.getHours()}-${dateTime.getMinutes()}-${dateTime.getSeconds()}`;
-        const backupFolderName = `${zippedFileName}__${dateTimeFormat}`;
+        // const dateTimeFormat = `${dateTime.getFullYear()}-${dateTime.getMonth() + 1}-${dateTime.getDate()}_${dateTime.getHours()}-${dateTime.getMinutes()}-${dateTime.getSeconds()}`;
+        // const backupFolderName = `${zippedFileName}__${dateTimeFormat}`;
 
-        const backupFolderPath = path.join(projectBackupFolderPath, backupFolderName);
-        await fs.promises.rename(folderPath, backupFolderPath)
+        // const backupFolderPath = path.join(projectBackupFolderPath, backupFolderName);
+        // try {
+        await fs.promises.rmdir(folderPath, {recursive: true});
+        // } catch(e) {
+        //     console.error()
+        // }
     }
     
     // Extract zip file to project folder
     const directory = await unzipper.Open.buffer(zippedFile.data);
     await directory.extract({ path: folderPath });
+
+    // fs.promises.rmdir(backupFolderName);
     
     res.send('Files uploaded!');
 });
