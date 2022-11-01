@@ -6,9 +6,9 @@
   "scripts": {
     "start": "ts-node-dev src/index.ts",
     "start-prod": "ts-node src/index.ts",
-    "pm2:start": "PM2_HOME=. pm2 start src/index.ts",
+    "pm2:start": "PM2_HOME=. pm2 start src/index.ts --max-memory-restart 300M",
     "pm2:stop": "PM2_HOME=. pm2 stop src/index.ts",
-    "pm2:restart": "PM2_HOME=. pm2 restart src/index.ts",
+    "pm2:restart": "PM2_HOME=. pm2 restart src/index.ts --max-memory-restart 300M",
     "pm2:status": "PM2_HOME=. pm2 status src/index.ts",
     "pm2:log": "PM2_HOME=. pm2 log src/index.ts",
     "pm2:flush": "PM2_HOME=. pm2 flush src/index.ts",
