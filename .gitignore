@@ -19,3 +19,4 @@ pm2.log
 pub.sock
 rpc.sock
 touch
+dump.pm2*
