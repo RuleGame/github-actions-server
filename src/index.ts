@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import unzipper from 'unzipper';
 import https from 'https';
+import rimraf from 'rimraf';
 
 type Config = {
     [project: string]: {
@@ -96,7 +97,7 @@ app.post<{project: string}, string, { secret: string }>('/:project/upload', asyn
     }
 
     if (!hasError && backupFolderPath !== undefined) {
-        fs.promises.rmdir(backupFolderPath, {recursive: true});
+        rimraf.sync(backupFolderPath);
     }
     
     if (hasError) {
